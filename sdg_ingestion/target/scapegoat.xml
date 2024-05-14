@@ -1,0 +1,3 @@
+<scapegoat count="1" warns="0" errors="0" infos="1">
+      <warning line="3" text="Missing final modifier on case class" snippet="Case classes should have final modifier" level="Info" file="com.sdg.ingestion.config.IngestionSettings.scala" inspection="com.sksamuel.scapegoat.inspections.FinalModifierOnCaseClass"/>
+    </scapegoat>

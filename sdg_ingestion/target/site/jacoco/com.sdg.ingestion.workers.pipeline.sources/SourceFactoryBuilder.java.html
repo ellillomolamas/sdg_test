@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SourceFactoryBuilder.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">sdg_ingestion</a> &gt; <a href="index.source.html" class="el_package">com.sdg.ingestion.workers.pipeline.sources</a> &gt; <span class="el_source">SourceFactoryBuilder.java</span></div><h1>SourceFactoryBuilder.java</h1><pre class="source lang-java linenums">package com.sdg.ingestion.workers.pipeline.sources;
+
+import com.sdg.ingestion.config.Constants;
+import com.sdg.ingestion.config.IngestionSettingsParameters;
+import com.sdg.ingestion.config.dataflowSettings.source.Source;
+import com.sdg.ingestion.workers.pipeline.sources.impl.SourceJSONFlow;
+import org.apache.spark.sql.SparkSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+public class SourceFactoryBuilder {
+
+    private Source source;
+<span class="nc" id="L15">    private static final Logger LOG = LoggerFactory.getLogger(SourceFactoryBuilder.class);</span>
+
+<span class="nc" id="L17">    public SourceFactoryBuilder() {</span>
+        /* nothing to do */
+<span class="nc" id="L19">    }</span>
+
+    public SourceFactoryBuilder source(Source source) {
+<span class="nc" id="L22">        this.source = source;</span>
+<span class="nc" id="L23">        return this;</span>
+    }
+
+    public SourceFactory builder(SparkSession session, String hdfsPrefix) throws Exception {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        switch (source.getFormat()) {</span>
+            case Constants.JSON_SOURCE_TYPE:
+<span class="nc" id="L29">                return new SourceJSONFlow(session, source, hdfsPrefix);</span>
+            default:
+<span class="nc" id="L31">                LOG.error(&quot;-----------------&gt; Flow {} not allowed&quot;, this.source.getFormat());</span>
+<span class="nc" id="L32">                throw new Exception(String.format(&quot;Flow %s not allowed&quot;, this.source.getFormat()));</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
